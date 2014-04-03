@@ -3,9 +3,14 @@
 class Twocheckout_Charge extends Twocheckout
 {
 
-    public static function form($params, $type='Checkout')
+    public static function form($params, $type='Checkout', $mode='')
     {
-        echo '<form id="2checkout" action="https://www.2checkout.com/checkout/purchase" method="post">';
+        if ($mode == 'sandbox') {
+            echo '<form id="2checkout" action="https://sandbox.2checkout.com/checkout/purchase" method="post">';
+        } else {
+            echo '<form id="2checkout" action="https://www.2checkout.com/checkout/purchase" method="post">';
+        } 
+
 
         foreach ($params as $key => $value)
         {
@@ -20,9 +25,14 @@ class Twocheckout_Charge extends Twocheckout
         }
     }
 
-    public static function direct($params, $type='Checkout')
+    public static function direct($params, $type='Checkout', $mode='')
     {
-        echo '<form id="2checkout" action="https://www.2checkout.com/checkout/purchase" method="post">';
+
+        if ($mode == 'sandbox') {
+            echo '<form id="2checkout" action="https://sandbox.2checkout.com/checkout/purchase" method="post">';
+        } else {
+            echo '<form id="2checkout" action="https://www.2checkout.com/checkout/purchase" method="post">';
+        } 
 
         foreach ($params as $key => $value)
         {
@@ -46,15 +56,26 @@ class Twocheckout_Charge extends Twocheckout
         echo '<script src="https://www.2checkout.com/static/checkout/javascript/direct.min.js"></script>';
     }
 
-    public static function link($params)
+    public static function link($params, $mode='')
     {
-        $url = 'https://www.2checkout.com/checkout/purchase?'.http_build_query($params, '', '&amp;');
+
+         if ($mode == 'sandbox') {
+             $url = 'https://sandbox.2checkout.com/checkout/purchase?'.http_build_query($params, '', '&amp;');
+        } else {
+             $url = 'https://www.2checkout.com/checkout/purchase?'.http_build_query($params, '', '&amp;');
+        }        
+
+
         return $url;
     }
 
-    public static function redirect($params)
+    public static function redirect($params, $mode='')
     {
-        $url = 'https://www.2checkout.com/checkout/purchase?'.http_build_query($params, '', '&amp;');
+         if ($mode == 'sandbox') {
+                    $url = 'https://sandbox.2checkout.com/checkout/purchase?'.http_build_query($params, '', '&amp;');
+        } else {
+                    $url = 'https://www.2checkout.com/checkout/purchase?'.http_build_query($params, '', '&amp;');
+        }        
         header("Location: $url");
     }
 
